@@ -1,0 +1,169 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[a4paper,top=1.3cm,bottom=2cm,left=1.5cm,right=1.5cm,marginparwidth=0.75cm]{geometry}
+\usepackage{setspace}
+\usepackage{cmap}					
+\usepackage{mathtext} 				
+\usepackage[T2A]{fontenc}			
+\usepackage[utf8]{inputenc}			
+\usepackage[english,russian]{babel}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{longtable}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,urlcolor=blue}
+\usepackage[rgb]{xcolor}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools} 
+\usepackage{icomma} 
+\mathtoolsset{showonlyrefs=true}
+\usepackage{euscript}
+\usepackage{mathrsfs}
+
+\DeclareMathOperator{\sgn}{\mathop{sgn}}
+\newcommand*{\hm}[1]{#1\nobreak\discretionary{}
+	{\hbox{$\mathsurround=0pt #1$}}{}}
+
+
+\title{\textbf{Вектор Лапласа -- Рунге -- Ленца}}
+\author{Шептяков Артём, Лазарь Влад}
+\date{Январь, 2023}
+
+
+\begin{document}
+
+\maketitle
+\newpage
+
+\section*{Введение}
+\addtocounter{section}{1}
+\textbf{Цель работы:}
+изучение особенностей и применения вектора Лапласа -- Рунге -- Ленца в задаче Кеплера.
+
+\section*{Определение}
+\addtocounter{section}{1}
+\textbf{Определение.} Пусть тело массы движется в поле центральной силы с центром в точке O. Тогда вектор $\vec{A} = [\vec{p} \times \vec{L}] - mk\vec{r}/{r}$ называется вектором Лапласа -- Рунге -- Ленца, где $\vec{p}$ -- импульс тела, $\vec{L}$ -- момент импульса относительно $O$, $\vec{r}$ -- радиус-вектор с началом в точке $O$, a $k = const$ -- показетель напряженности поля $(f(r) \sim k)$.\\\\
+\textbf{P.S.} В случае рассмотрения движения двух тел массы $m_1$ и $m_2$ стоит перейти к приведённой массе $\mu = \frac{m_1\cdot m_2}{m_1 + m_2}$.
+
+\section*{Утверждение 1.}
+\textbf{Утверждение.} Вектор $\vec{A} = \vec{const}$ в поле центральной силы $\vec{f} = f(r)\frac{\vec{r}}{r}$, если $f(r) \sim \frac{1}{r^2}$.
+\\\\
+\textbf{Доказательство.}
+Рассмотрим произвольную функцию $f(r)$. Для доказательства этого утверждения продифференцируем выражение для $\vec{A}$:
+\[\frac{d}{dt}(\vec{A}) = \frac{d}{dt}\left[ \vec{p}\times \vec{L}\right] -mk \frac{d}{dt}\left(\frac{\vec{r}}{r}\right)\]
+Поскольку сила $\vec{f}$ центральная, то момент импульса относительно центра $\vec{L} = \left[\vec{p}\times \vec{L} \right]$ сохраняется $(\vec{M} = \left[\vec{r}\times \vec{f} \right] = \left[\vec{p}\times (f(r)\frac{\vec{r}}{r})) \right] = \vec{0})$.
+\[\frac{d}{dt}(\vec{A}) = \left[\frac{d\vec{p}}{dt}\times \vec{L}\right] -mk \frac{d}{dt}\left(\frac{\vec{r}}{r}\right)\]
+Запишем второй Закон Ньютона $\dot{\vec{p}} = f(r)\frac{\vec{r}}{r}$, получим:
+\[\left[ \dot{\vec{p}}\times \vec{L}\right] = \left[f(r)\frac{\vec{r}}{r} \times \left[\vec{r} \times m\dot{\vec{r}} \right]  \right] = \frac{mf(r)}{r}\left[ \vec{r} \times \left[ \vec{r} \times \dot{\vec{r}}\right]\right]\]
+Раскроем двойное векторное произведение:
+\[\left[ \dot{\vec{p}}\times \vec{L}\right] = \frac{mf(r)}{r}\left(\vec{r}(\vec{r}\cdot\dot{\vec{r}}) - \dot{\vec{r}}(r^2) \right) = \frac{mf(r)}{r}\left(\vec{r}(r\cdot\dot{r}) - \dot{\vec{r}}(r^2) \right) \]
+\[\left[ \dot{\vec{p}}\times \vec{L}\right] = mf(r)r^2 \left( \frac{\vec{r}\dot{r}}{r^2} - \frac{\dot{\vec{r}}}{r}\right) \]
+\[\frac{d}{dt}(\frac{\vec{r}}{r}) = \frac{\dot{\vec{r}}r - \vec{r}\dot{r}}{r^2} = -\left(\frac{\vec{r}\dot{r}}{r^2} -\frac{\dot{\vec{r}}}{r}\right)\]
+Итого получаем для $\left[ \dot{\vec{p}}\times \vec{L}\right]$ :
+\[\left[ \dot{\vec{p}}\times \vec{L}\right] = -mf(r)r^2\frac{d}{dt}\left(\frac{\vec{r}}{r}\right) \]
+Положим $f(r) = -\frac{k}{r^2}$. Выражение упростится:
+\[\left[ \dot{\vec{p}}\times \vec{L}\right] = mk\frac{d}{dt}\left(\frac{\vec{r}}{r}\right) \]
+Наконец получаем исходное утверждение:
+\[\frac{d\vec{A}}{dt} = \vec{0} \Rightarrow \vec{A} = \vec{const}\]
+\\\\
+Мы нашли ещё один инвариант в задаче Кеплера (помимо полной энергии $E$ и момента импульса $L$). Отметим, что справедливо вышеописанное только для центральных сил, подчиняющихся закону обратных квадратов, и специфично задаче Кеплера.
+
+
+
+\section*{Утверждение 2.}
+\textbf{Утверждение.} Вектор $\vec{A}$ лежит в плоскости движения.
+\\\\
+\textbf{Доказательство.}
+По определению $\vec{L} = \left[ \vec{r} \times \vec{p}\right] $, а значит $\vec{L}$ перпендикулярен плоскости, в которой лежат скорости тела. Распишем скалярное произведение $\left( \vec{A}\cdot\vec{L}\right)$:
+\[\left( \vec{A}\cdot\vec{L}\right) =  \left[\vec{p}\times \vec{L} \right]\cdot\vec{L} - mk\frac{\vec{r}}{r}\cdot\vec{L} \]
+\[\left( \vec{A}\cdot\vec{L}\right) =  \left[\vec{p}\times \vec{L} \right]\cdot\vec{L} - mk\frac{\vec{r}}{r}\cdot\left[ \vec{r} \times \vec{p}\right] \]
+Из свойств векторного произведения очевидно, что $\left[ \vec{r} \times \vec{p}\right] \bot \vec{L} \Rightarrow \left[ \vec{r} \times \vec{p}\right] \cdot\vec{L} = 0$. А значит $\left( \vec{A}\cdot\vec{L}\right) =  \vec{0}$.
+\\\\
+Имеет смысл рассмотреть частный случай движения по окружности. В силу доказанных ранее утверждений получим $\vec{A} = \vec{0}$. Действительно:
+\[ \frac{k}{r^2} = \frac{mv^2}{r} \Rightarrow k = mv^2r\]
+Тогда имеем:
+\[\left[\vec{p}\times\vec{L} \right] = \left[m\vec{v} \times m\left[\vec{r} \times\vec{v} \right] \right] = m^2(\vec{r}(\vec{v}\cdot\vec{v}) - \vec{v}(\vec{v}\cdot\vec{r})) = m^2v^2\vec{r}\]
+А значит
+\[\vec{A} = \left[\vec{p} \times \vec{L} \right] - mk\frac{\vec{r}}{r} = m^2v^2r\cdot\frac{\vec{r}}{r} - mk\frac{\vec{r}}{r} = (m^2v^2r - mk)\cdot\frac{\vec{r}}{r} = (mk - mk)\frac{\vec{r}}{r} = \vec{0}\] 
+
+\textbf{Замечание.} Утверждение 2 физически очевидно в силу сохранения $\vec{A}$. Более того, он направлен по главной оси орбиты в сторону перицентра. Чтобы в этом убедиться, достаточно рассчитать направление $\vec{A}$ в ближней к центру точке.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{ris1}
+    \caption{\textit{Вектор $\vec{A}$ в различных точках эллиптической орбиты}}
+\end{figure}
+\newpage
+Следует отдельно рассмотреть случай движения по окружности. В силу симметрии и ранее доказанных утверждений вектор $\vec{A} = \vec{0}$. Действительно: 
+\[\frac{m v^2}{r} = \frac{k}{r^2}\]
+\[\vec{A} = \left[\vec{p} \times \vec{L} \right] - mk\frac{\vec{r}}{r} = [m^2v^2r]\frac{\vec{r}}{r} - mk\frac{\vec{r}}{r} = [m^2v^2r - mk]\frac{\vec{r}}{r} = [mk - mk]\frac{\vec{r}}{r} = \vec{0}\]	
+\\\\
+\textit{Выведем некоторые соотношения из доказанных ранее утверждений для вектора Лапласа--Рунге--Ленца.}
+\\\\
+\textbf{Первый закон Кеплера.}
+Каждая планета движется по эллипсу, в одном из фокусов которого находится Солнце. Более точно -- траектория тела, движущегося в поле центральной силы $f(r) \sim \frac{1}{r^2}$ является коническим сечением. При финитном движении -- эллипс, при инфинитном -- парабола или гипербола.
+\\\\
+\textbf{Доказательство.}
+Возьмём скалярное проивзедение $(\vec{A}\cdot\vec{r})$ :
+\[(\vec{A}\cdot\vec{r}) = \left(\left[\vec{p}\times\vec{L} \right] - mk\frac{\vec{r}}{r}\right)\cdot\vec{r} = A\cdot r\cdot cos(\alpha) \]
+\[A\cdot r\cdot cos(\alpha) = \left[\vec{p}\times\vec{L}\right]\cdot\vec{r} - mkr\]
+В смешанном произведении переставим множители: $\left[\vec{p}\times\vec{L}\right]\cdot\vec{r} = \left[\vec{r}\times\vec{p}\right]\cdot\vec{L} = L^2$. Тогда
+\[A\cdot r\cdot cos(\alpha) = L^2 - mkr\]
+\[r = \frac{L^2}{mk + A\cdot r\cdot cos(\alpha)} \]
+
+
+То есть, мы получили уравнение конического сечения в полярных координатах
+$(\rho = \frac{p}{1+\varepsilon\cdot cos(\phi)})$ с эксцентриситетом $\varepsilon = \frac{A}{mk}$ и фокальным параметром $p = \frac{L^2}{mk}$.
+
+
+\section*{Утверждение 3.}
+\textbf{Утверждение.} Годограф скоростей в задаче Кеплера -- окружность.
+\\\\
+\textbf{Доказательство.}
+Преобразуем выражение для $\vec{A}$:
+\[mk\frac{\vec{r}}{r} = \left[\vec{p} \times \vec{L}\right] - \vec{A} \]
+Возведём скалярно в квадрат и получим:
+\[m^2k^2 = p^2L^2 - 2\vec{A}\cdot\left[\vec{p}\times\vec{L} \right] + A^2\]
+P.S. Отметим следующее очевидное соотношение, из которого вытекает равенство $\left[\vec{p}\times\vec{L} \right]^2 = p^2L^2$:
+\[(\vec{a}\cdot\vec{b})^2 + \left[\vec{a}\times\vec{b} \right]^2 = a^2b^2 \]
+Направим ось X по главной оси конического сечения, а ось Z по вектору $\vec{L}$. Тогда $\vec{p} = (p_x; p_y; 0),
+\\
+\vec{L} = (0; 0; L), \vec{A} = (-A, 0, 0)$. Имеем:
+\[m^2k^2 = (p_x^2 + p_y^2)L^2 - 2Ap_yL + A^2 \]
+\[(\frac{mk}{L})^2 = p_x^2 + (p_y + \frac{A}{L})^2 \]
+Таким образом, годограф скорости -- окружность с центром в точке $(0; \frac{A}{L})$ и радиусом $R = \frac{mk}{L}$.
+\\
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{ris2}
+    \caption{\textit{Годограф скорости $v$}}
+\end{figure}
+\\
+Заметим, что отношение расстояния от центра окружности до начала отсчёта $l = \frac{A}{L}$ к её радиусу $R = \frac{mk}{L}$ равно эксцентриситету.
+\[\frac{l}{R} = \frac{A/L}{mk/L} = \frac{A}{mk} = \varepsilon\]
+Итак, взаимное расположение окружности годографа и оси абсцисс определяет характер движения. Если $\varepsilon = \frac{l}{r} < 1$, то ось абсцисс пересекает годограф в двух точках, движение происходит по эллипсу и является финитным (см. рис. 2). Если же $\varepsilon = 1$, то окружность касается оси $X$ в точке $(0, 0)$, чему соответствует скорость $v = 0$. В этом случае скорость $v = 0$ достигается асимптотически на бесконечности, что и является условием движения по параболе. Если же $\varepsilon > 1$, то траектория -- гипербола, а окружность лежит выше оси абсцисс, причем достигается лишь некоторая дуга.
+
+\section*{Утверждение 4.}
+\textbf{Утверждение.} Величины вектора Лапласа -- Рунге -- Ленца $A$, полной энергии $E$ и момента импульса $L$ связаны слудующим отношением:
+\[A^2 = m^2k^2 + 2mEL^2\]
+\textbf{Доказательство.} Запишем соотношения в точке перицентра:
+\[E = \frac{mv^2}{2} - \frac{k}{r}\]
+\[L = mvr\]
+\[A = m^2v^2r - mk\]
+Подставим их в доказываемое тождество:
+\[m^4v^4r^2 + m^2k^2 - 2m^3v^2kr = m^2k^2 + 2mEL^2 = m^2k^2 + 2m \left(\frac{mv^2}{2} - \frac{k}{r}\right)m^2v^2r^2\]
+\[m^4v^4r^2 + m^2k^2 - 2m^3v^2kr = m^2k^2 + m^4v^4r^2 - 2m^3v^2kr\]
+
+\section*{Заключение}
+Было показано, как вектор Лапласа -- Рунге -- Ленца используется для описания формы и ориентации орбиты, по которой одно небесное тело обращается вокруг другого. В работе доказано, что вектор Лапласа -- Рунге -- Ленца представляет собой интеграл движения, то есть его направление и величина являются постоянными независимо от того, в какой точке орбиты они вычисляются.
+Также у вектора имеется обобщение на СТО, и он широко применяется для решения задач в квантовой механике атома водорода.
+
+
+\section*{Литература}
+\begin{enumerate}
+\item H. Goldstein. Prehistory of the"Runge-Lenz" vector. American Journal of Physics, 1975.
+\item H. Goldstein. More on the prehistory of the Laplace or Runge-Lenz vector. American Journal of Physics, 1976.
+\item H. Goldstein, C. Poole, J. Safko, and S.R. Addison. Classical mechanics. American Journal of Physics, 2002.
+\end{enumerate}
+    
+\end{document}

@@ -1,0 +1,88 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[a4paper,top=1.5cm,bottom=2cm,left=1.5cm,right=1.5cm,marginparwidth=0.75cm]{geometry}
+\usepackage{setspace}
+\usepackage{cmap}					
+\usepackage{mathtext} 				
+\usepackage[T2A]{fontenc}			
+\usepackage[utf8]{inputenc}			
+\usepackage[english,russian]{babel}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{longtable}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,urlcolor=blue}
+\usepackage[rgb]{xcolor}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools} 
+\usepackage{icomma} 
+\mathtoolsset{showonlyrefs=true}
+\usepackage{euscript}
+\usepackage{mathrsfs}
+
+
+
+\begin{document}
+    \newpage
+    \begin{spacing}{1.8}
+        \centering{\Large{\textbf{Уравнение политропы $c = const$ для произвольного вещества. Связь изотермической и адиабатической сжимаемостей.}}}
+    \end{spacing}
+    
+    \large{Оговорим, что нам известна зависимость $T(p, V)$.}
+    \section*{1) Нахождение $C_{\alpha} - C_{V}$:}
+
+    Первое начало термодинамики:
+    \[ C_{\alpha}dT = dU + pdV \]
+    \[ C_{\alpha}dT = \left(\frac{\partial U}{\partial T} \right)_{V}dT  + \left(\frac{\partial U}{\partial V} \right)_{T}dV  + pdV\]
+    \[ C_{\alpha}dT = \left(\frac{\partial U}{\partial T} \right)_{V}dT + \left(\left(\frac{\partial U }{\partial V}\right)_{T} + p\right)dV \]
+    Крайне очевидно, что $\left(\frac{\partial U}{\partial T}\right)_{V} = C_{V}$, тогда: 
+    \[ C_{\alpha} - C_{V} = \left(\left(\frac{\partial U }{\partial V}\right)_{T} + p\right)\left(\frac{\partial V}{\partial T}\right)_{\alpha}\]
+
+    \section*{2) Аналогично выводу политропы для идеального газа 
+    найдём $\frac{C_{\alpha} - C_{V}}{C_{p} - C_{V}}$:}
+    \[ \frac{C_{\alpha} - C_{V}}{C_{p} - C_{V}} = \frac{T\left(\frac{\partial p}{\partial T}\right)_{V}\left(\frac{\partial V}{\partial T}\right)_{\alpha}}{T\left(\frac{\partial p}{\partial T}\right)_{V}\left(\frac{\partial V}{\partial T}\right)_{p}} \]
+
+    Немного пошаманим над уравнением выше:
+    \[ dT = \left(\frac{C_{p} - C_{V}}{C_{\alpha} - C_{V}}\right)\left(\frac{\partial T}{\partial V}\right)_{p}dV \]
+
+    Напоминаю, что нам по условию дана зависимость $T = T(p, V)$, то есть:
+    \[ dT = \left(\frac{\partial T}{\partial p}\right)_{V}dp + \left(\frac{\partial T}{\partial V}\right)_{p}dV \]
+    
+    \newpage
+
+    Приравниваем $dT$ и получаем по заслугам:
+    \[ \left(\frac{C_{p} - C_{V}}{C_{\alpha} - C_{V}}\right)\left(\frac{\partial T}{\partial V}\right)_{p}dV = \left(\frac{\partial T}{\partial p}\right)_{V}dp + \left(\frac{\partial T}{\partial V}\right)_{p}dV \]
+
+    \[ \left(\frac{\partial T}{\partial p}\right)_{V}dp + \left(1 - \frac{C_{p} - C_{V}}{C_{\alpha} - C_{V}}\right)\left(\frac{\partial T}{\partial V}\right)_{p}dV = 0 \]
+
+    И, не поверите, находим уравнение политропы в общем случае:
+    \[ \left(\frac{\partial T}{\partial p}\right)_{V}dp + \left(\frac{C_{\alpha} - C_{p}}{C_{\alpha} - C_{V}}\right)\left(\frac{\partial T}{\partial V}\right)_{p}dV = 0 \]
+
+    \section*{3) Найдем связь между термической $\beta_{T}$ и адиабатической $\beta_{S}$ сжимаемостями:}
+    Для начала $\beta_{T} = -\frac{1}{V}\left(\frac{\partial V}{\partial p}\right)_{T}$ и $\beta_{S} = -\frac{1}{V}\left(\frac{\partial V}{\partial p}\right)_{S}.$
+    \newline
+    Из свойств частных производных имеем соотношение 
+    $\left(\frac{\partial V}{\partial p}\right)_{T}\left(\frac{\partial p}{\partial T}\right)_{V}\left(\frac{\partial T}{\partial V}\right)_{p} = -1.$
+    Из выведенного ранее уравнения политропы получаем уравнение адиабаты:
+    \[ \left(\frac{\partial T}{\partial p}\right)_{V}dp + \frac{C_{p}}{C_{V}}\left(\frac{\partial T}{\partial V}\right)_{p}dV = 0 \]
+    Выразим $\left(\frac{\partial V}{\partial p}\right)_{T}.$  Получим $\left(\frac{\partial V}{\partial p}\right)_{T} = -V\beta_{T}$. Подставим это в соотношение соотношение связи между собой частных производных, тогда:
+    \[ \left(\frac{\partial V}{\partial T}\right)_{p}\left(\frac{\partial T}{\partial p}\right)_{V} = V\beta_{T}.\]
+
+    Из уравнения адиабаты получаем:
+    \[ \left(\frac{\partial T}{\partial p}\right)_{V} + \frac{C_{p}}{C_{V}}\left(\frac{\partial T}{\partial V}\right)_{p}\left(\frac{\partial V}{\partial p}\right)_{S} = 0 \]
+
+    \[ \left(\frac{\partial T}{\partial p}\right)_{V} = -\frac{C_{p}}{C_{V}}\left(\frac{\partial T}{\partial V}\right)_{p}\left(\frac{\partial V}{\partial p}\right)_{S} \]
+
+    \[ \left(\frac{\partial T}{\partial p}\right)_{V} = \frac{C_{p}}{C_{V}}\left(\frac{\partial T}{\partial V}\right)_{p}V\beta_{S}\]
+
+    \[ \left(\frac{\partial T}{\partial p}\right)_{V}\left(\frac{\partial V}{\partial T}\right)_{p} = \frac{C_{p}}{C_{V}}V\beta_{S}\]
+
+    \newpage
+    Заметим, что левая часть - в точности $V\beta_{T}$. Ну а тогда:
+    \[ V\beta_{T} = \frac{C_p}{C_V}V\beta_{S} \]
+
+    \[\beta_{T} = \frac{C_p}{C_V}\beta_{S} \]
+    
+    
+\end{document}
